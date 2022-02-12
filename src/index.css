@@ -1,0 +1,25 @@
+.Button {
+  color: #fff;
+  background-color: #aaa;
+  border: none;
+  border-radius: 5px;
+  width: 150px;
+  padding: 20px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.Button-selected {
+  color: #fff !important;
+  background-color: #01a301 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+.Button-disable {
+  color: #aaa;
+  background-color: #ddd;
+  cursor: not-allowed;
+  pointer-events: none;
+}
