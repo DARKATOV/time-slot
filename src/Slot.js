@@ -36,7 +36,7 @@ class Slot extends React.Component {
     const modifier = isSelected ? 'Button-selected ' : '';
 
     return (
-      <button className={modifier + this.props.modifier} onClick={this.handleClick}>
+      <button className={'Button ' + modifier + this.props.modifier} onClick={this.handleClick}>
         {this.props.hour}
       </button>
     );

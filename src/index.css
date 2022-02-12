@@ -1,33 +1,100 @@
-* {
-  font-family: sans-serif;
+:root {
+  --background: #fff;
+  --text-primary: #000;
+  --text-secondary: #979797;
+  --button: #9298a3;
+  --button-hover: #b3bac7;
+  --button-selected: #05448b;
+  --button-selected-hover: #0a5bb8;
+  --button-disabled: #363a46;
+  --switch-button: #043772;
+  --switch-button-hover: #074994;
 }
 
-button {
+[data-theme='dark'] {
+  --background: #28342a;
+  --text-primary: #fff;
+  --text-secondary: #6d6d6d;
+  --button: #475e4c;
+  --button-hover: #607e66;
+  --button-selected: #026802;
+  --button-selected-hover: #048604;
+  --button-disabled: #1a1c22;
+  --switch-button: #025302;
+  --switch-button-hover: #026802;
+}
+
+* {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+}
+
+.Container {
+  color: var(--text-primary);
+  background-color: var(--background);
+  min-height: 100vh;
+  padding: 10px 180px;
+  text-align: center;
+}
+
+.Side {
+  position: absolute;
+  top: 25px;
+  right: 40px;
+}
+
+.Button {
   color: #fff;
-  background-color: #aaa;
+  background-color: var(--button);
   border: none;
   border-radius: 5px;
   width: 150px;
   padding: 20px;
+  margin: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.Button:hover {
+  background-color: var(--button-hover);
+}
+
+.SwitchButton {
+  color: #fff;
+  background-color: var(--switch-button);
+  border: none;
+  border-radius: 5px;
+  width: 200px;
+  padding: 10px;
   margin: 10px;
   font-size: 16px;
   cursor: pointer;
 }
 
-.Container {
-  padding: 10px 200px;
+.SwitchButton:hover {
+  background-color: var(--switch-button-hover);
 }
 
 .Button-selected {
   color: #fff !important;
-  background-color: #01a301 !important;
+  background-color: var(--button-selected) !important;
   cursor: pointer !important;
   pointer-events: auto !important;
 }
 
+.Button-selected:hover {
+  background-color: var(--button-selected-hover) !important;
+}
+
 .Button-disable {
-  color: #aaa;
-  background-color: #ddd;
+  color: var(--text-secondary);
+  background-color: var(--button-disabled);
   cursor: not-allowed;
   pointer-events: none;
 }
