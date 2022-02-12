@@ -13,22 +13,21 @@ class Slot extends React.Component {
   handleClick() {
     const isSelected = this.state.isSelected;
     if (isSelected) {
-      clearInterval(this.timerID);
-      this.props.onCounterChange(-1);
+      clearTimeout(this.timerID);
+      this.props.onCounterChange(1);
       this.setState({isSelected: false});
     } else {
-      this.timerID = setInterval(
-        () => this.tick(),
-        0.2*minute
+      this.timerID = setTimeout(
+        () => this.timer(),
+        0.4*minute
       );
-      this.props.onCounterChange(1);
+      this.props.onCounterChange(-1);
       this.setState({isSelected: true});
     }
   }
 
-  tick() {
-    clearInterval(this.timerID);
-    this.props.onCounterChange(-1);
+  timer() {
+    this.props.onCounterChange(1);
     this.setState({isSelected: false});
   }
 
@@ -37,11 +36,9 @@ class Slot extends React.Component {
     const modifier = isSelected ? 'Button-selected ' : '';
 
     return (
-      <div>
-        <button className={'Button ' + modifier + this.props.modifier} onClick={this.handleClick}>
-          {this.props.hour}
-        </button>
-      </div>
+      <button className={modifier + this.props.modifier} onClick={this.handleClick}>
+        {this.props.hour}
+      </button>
     );
   }
 }

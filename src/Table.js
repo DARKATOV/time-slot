@@ -5,7 +5,7 @@ class Table extends React.Component {
   constructor(props) {
     super(props);
     this.handleCounter = this.handleCounter.bind(this);
-    this.state = {counter: 0};
+    this.state = {counter: 8};
   }
 
   handleCounter(counter) {
@@ -16,22 +16,19 @@ class Table extends React.Component {
 
   render() {
     const counter = this.state.counter;
-    let modifier = '';
-
-    if (counter >= 8) {
-      modifier = 'Button-disable';
-    }
-
+    const modifier = counter === 0 ? 'Button-disable' : '';
     const listItems = [];
 
-    this.props.items.forEach((item) => {
+    this.props.items.forEach(item => {
       listItems.push(
         <Slot key={item.id} hour={item.hour} onCounterChange={this.handleCounter} modifier={modifier} />
       );
     });
 
     return (
-      <div>
+      <div className='Container'>
+        <h1>Select a time</h1>
+        <h2>Taxis available: {counter}</h2>
         {listItems}
       </div>
     );
