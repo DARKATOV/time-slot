@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Slot from './Slot';
 
-const Table = ({ items }) => {
+const Table = (props) => {
   const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const [theme, setTheme] = useState(isDark ? 'dark' : 'light');
   const [count, setCount] = useState(8);
@@ -12,7 +12,7 @@ const Table = ({ items }) => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   }
 
-  items.forEach(item => {
+  props.items.forEach(item => {
     listItems.push(
       <Slot key={item.id} hour={item.hour} onCountChange={setCount} modifier={modifier} />
     );
