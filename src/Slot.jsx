@@ -4,7 +4,6 @@ const Slot = (props) => {
   const minute = 0.2;
   const [isSelected, setIsSelected] = useState(false);
   const timerId = useRef(null);
-  const modifier2 = isSelected ? 'Button-selected ' : '';
 
   function handleClick() {
     props.onCountChange(prevState => isSelected ? prevState + 1 : prevState - 1);
@@ -18,7 +17,10 @@ const Slot = (props) => {
   }
 
   return (
-    <button className={'Button ' + modifier2 + props.modifier} onClick={handleClick}>
+    <button
+      className={isSelected ? 'Button Button-selected ' + props.modifier : 'Button ' + props.modifier}
+      onClick={handleClick}
+    >
       {props.hour}
     </button>
   );
