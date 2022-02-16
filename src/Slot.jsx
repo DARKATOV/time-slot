@@ -1,46 +1,27 @@
-import React from 'react';
+import { useState, useRef } from 'react';
 
-const second = 1000;
-const minute = 60*second;
+const Slot = ({ hour, onCountChange, modifier }) => {
+  const minute = 0.2;
+  const [isSelected, setIsSelected] = useState(false);
+  const timerId = useRef(null);
+  const modifier2 = isSelected ? 'Button-selected ' : '';
 
-class Slot extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-    this.state = {isSelected: false};
+  function handleClick() {
+    onCountChange(prevState => isSelected ? prevState + 1 : prevState - 1);
+    isSelected ? clearTimeout(timerId.current) : timerId.current = setTimeout(timer, minute*60*1000);
+    setIsSelected(!isSelected);
   }
 
-  handleClick() {
-    const isSelected = this.state.isSelected;
-    if (isSelected) {
-      clearTimeout(this.timerID);
-      this.props.onCounterChange(1);
-      this.setState({isSelected: false});
-    } else {
-      this.timerID = setTimeout(
-        () => this.timer(),
-        0.4*minute
-      );
-      this.props.onCounterChange(-1);
-      this.setState({isSelected: true});
-    }
+  function timer() {
+    onCountChange(prevState => prevState + 1);
+    setIsSelected(false);
   }
 
-  timer() {
-    this.props.onCounterChange(1);
-    this.setState({isSelected: false});
-  }
-
-  render() {
-    const isSelected = this.state.isSelected;
-    const modifier = isSelected ? 'Button-selected ' : '';
-
-    return (
-      <button className={'Button ' + modifier + this.props.modifier} onClick={this.handleClick}>
-        {this.props.hour}
-      </button>
-    );
-  }
+  return (
+    <button className={'Button ' + modifier2 + modifier} onClick={handleClick}>
+      {hour}
+    </button>
+  );
 }
 
 export default Slot;

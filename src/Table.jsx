@@ -1,55 +1,35 @@
-import React from 'react';
+import { useState } from 'react';
 import Slot from './Slot';
 
-class Table extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleCounter = this.handleCounter.bind(this);
-    this.handleSwitchTheme = this.handleSwitchTheme.bind(this);
-    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    this.state = {
-      counter: 8,
-      theme: isDark ? 'dark' : 'light'
-    };
+const Table = ({ items }) => {
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const [theme, setTheme] = useState(isDark ? 'dark' : 'light');
+  const [count, setCount] = useState(8);
+  const modifier = count === 0 ? 'Button-disable' : '';
+  const listItems = [];
+
+  function handleSwitchTheme() {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   }
 
-  handleCounter(counter) {
-    this.setState(prevState => ({
-      counter: prevState.counter + counter
-    }));
-  }
-
-  handleSwitchTheme() {
-    this.setState(prevState => ({
-      theme: prevState.theme === 'dark' ? 'light' : 'dark'
-    }));
-  }
-
-  render() {
-    const counter = this.state.counter;
-    const theme = this.state.theme;
-    const modifier = counter === 0 ? 'Button-disable' : '';
-    const listItems = [];
-
-    this.props.items.forEach(item => {
-      listItems.push(
-        <Slot key={item.id} hour={item.hour} onCounterChange={this.handleCounter} modifier={modifier} />
-      );
-    });
-
-    return (
-      <div className='Container' data-theme={theme} >
-        <div className='Side'>
-          <button className='SwitchButton' onClick={this.handleSwitchTheme}>
-            Switch to {theme === 'dark' ? 'light' : 'dark'} theme
-          </button>
-        </div>
-        {counter === 0 ? <h1>Please wait</h1> : <h1>Select a time</h1>}
-        <h3>Taxis available: {counter}</h3>
-        {listItems}
-      </div>
+  items.forEach(item => {
+    listItems.push(
+      <Slot key={item.id} hour={item.hour} onCountChange={setCount} modifier={modifier} />
     );
-  }
+  });
+
+  return (
+    <div className='Container' data-theme={theme}>
+      <div className='Side'>
+        <button className='SwitchButton' onClick={handleSwitchTheme}>
+          Switch to {theme === 'dark' ? 'light' : 'dark'} theme
+        </button>
+      </div>
+      {count === 0 ? <h1>Please wait...</h1> : <h1>Select a time</h1>}
+      <h3>Taxis available: {count}</h3>
+      {listItems}
+    </div>
+  );
 }
 
 export default Table;
